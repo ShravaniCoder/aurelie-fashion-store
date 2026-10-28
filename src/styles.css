@@ -22,3 +22,167 @@
 
 /* Collection product cards: image and title open the product detail page. */
 .collection-product-image-link{display:block;width:100%;height:100%}.collection-product-name{display:block;text-decoration:none;color:inherit;cursor:pointer}.collection-product-name:hover{color:#a1845c}
+
+/* Refined, accessible interactions for collection category links */
+.collection-type-pills .collection-type-pill{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #e3d7c8;background:rgba(255,253,249,.92);padding:10px 14px;color:#65574c;font-size:10px;letter-spacing:.025em;line-height:1.2;cursor:pointer;transition:color .22s ease,background-color .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease}
+.collection-type-pills .collection-type-pill svg{opacity:.58;transform:translate(0,1px);transition:transform .22s ease,opacity .22s ease}
+.collection-type-pills .collection-type-pill:hover,.collection-type-pills .collection-type-pill:focus-visible{background:#f1e8dc;border-color:#b49a72;color:#30221c;transform:translateY(-2px);box-shadow:0 5px 14px rgba(48,34,28,.055);outline:none}
+.collection-type-pills .collection-type-pill:hover svg,.collection-type-pills .collection-type-pill:focus-visible svg{opacity:1;transform:translate(2px,-1px)}
+.collection-type-pills .collection-type-pill:active{transform:translateY(0)}
+.collection-shop-card{animation:collectionCardReveal .55s both;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
+.collection-shop-card:nth-child(2){animation-delay:70ms}.collection-shop-card:nth-child(3){animation-delay:130ms}.collection-shop-card:nth-child(4){animation-delay:190ms}.collection-shop-card:nth-child(5){animation-delay:250ms}.collection-shop-card:nth-child(6){animation-delay:310ms}
+.collection-product-image-link{display:block;overflow:hidden}
+.collection-product-image-link img{transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .4s ease}
+.collection-product-image-link:hover img{transform:scale(1.035);filter:saturate(1.03)}
+.category-page .pill-filter button{transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.category-page .pill-filter button:hover{transform:translateY(-1px);border-color:#b49a72;box-shadow:0 4px 12px rgba(48,34,28,.05)}
+@keyframes collectionCardReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.collection-type-pills .collection-type-pill{padding:9px 11px;font-size:9px;gap:6px}.collection-type-pills{row-gap:8px}}
+@media(prefers-reduced-motion:reduce){.collection-type-pills .collection-type-pill,.collection-type-pills .collection-type-pill svg,.collection-product-image-link img,.category-page .pill-filter button{transition:none!important}.collection-shop-card{animation:none!important}html{scroll-behavior:auto}}
+
+/* Aurélie collection/category interactions: subtle, product-first motion. */
+.collection-type-pills .collection-type-pill{position:relative;text-decoration:none;min-height:42px}
+.collection-type-pills .collection-type-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.category-page-polished{padding-bottom:72px}
+.category-hero-polished{position:relative;isolation:isolate;overflow:hidden;min-height:360px;height:clamp(360px,42vw,510px);background:#ded0bf;margin:20px 0 52px}
+.category-hero-polished>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;animation:categoryImageEnter .9s cubic-bezier(.2,.7,.2,1) both}
+.category-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(35,25,18,.66),rgba(35,25,18,.2) 75%)}
+.category-hero-copy{position:absolute;left:clamp(24px,7vw,90px);top:50%;transform:translateY(-50%);max-width:490px;color:#fffaf2;animation:categoryCopyEnter .65s .08s both}
+.category-hero-copy .eyebrow{color:#f0dfc7;margin-bottom:16px}
+.category-hero-copy h1{font-size:clamp(3.1rem,6vw,5.5rem);line-height:.95;margin-bottom:18px}
+.category-hero-copy p{max-width:370px;color:#fff5e9;font-size:12px;line-height:1.85}
+.category-hero-note{display:inline-block;margin-top:10px;font-size:8px;letter-spacing:.18em;color:#f0dfc7}
+.category-results-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:23px}
+.category-results-heading .eyebrow{margin-bottom:8px}
+.category-results-heading h2{font-size:clamp(2.2rem,4vw,3.3rem);margin:0 0 7px}
+.category-results-heading p{margin:0;color:var(--muted);font-size:11px}
+.category-sort{display:flex;align-items:center;gap:8px;color:#77685b;font-size:10px;white-space:nowrap}
+.category-sort select{background:#fffdf9;border:1px solid var(--line);padding:10px 12px;color:var(--espresso);outline-offset:3px}
+.category-filter-row-polished{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.category-filter-chip{border:1px solid #e2d6c8;background:#fffdf9;color:#6d5b4d;padding:11px 15px;font-size:10px;transition:background .22s,border-color .22s,color .22s,transform .22s;}
+.category-filter-chip:hover{border-color:var(--gold);transform:translateY(-2px)}
+.category-filter-chip.active{background:var(--espresso);border-color:var(--espresso);color:#fffaf2}
+.category-results-grid-wrap{animation:categoryResultsEnter .38s ease both}
+.category-back-link{display:flex;justify-content:center;margin-top:42px}
+.category-back-link a{display:inline-flex;align-items:center;gap:8px;padding-bottom:7px;border-bottom:1px solid #c9b69f;font-size:10px;letter-spacing:.04em}
+.category-back-link a svg{transition:transform .2s}
+.category-back-link a:hover svg{transform:translate(3px,-2px)}
+@keyframes categoryImageEnter{from{transform:scale(1.035);opacity:.75}to{transform:scale(1);opacity:1}}
+@keyframes categoryCopyEnter{from{opacity:0;translate:0 12px}to{opacity:1;translate:0 0}}
+@keyframes categoryResultsEnter{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
+@media(max-width:760px){.category-hero-polished{min-height:390px;height:72vw;margin:12px 0 38px}.category-hero-shade{background:linear-gradient(0deg,rgba(35,25,18,.78),rgba(35,25,18,.08))}.category-hero-copy{left:22px;right:22px;top:auto;bottom:24px;transform:none}.category-hero-copy h1{font-size:3.4rem}.category-hero-copy p{font-size:10px}.category-results-heading{align-items:flex-start;flex-direction:column;gap:16px}.category-sort{width:100%;justify-content:flex-start}.category-filter-chip{padding:10px 12px;font-size:9px}.category-back-link{margin-top:32px}}
+@media(prefers-reduced-motion:reduce){.category-hero-polished>img,.category-hero-copy,.category-results-grid-wrap{animation:none!important}.category-filter-chip,.category-back-link a svg{transition:none!important}}
+
+/* Aurélie collection page: elegant text motion and in-page category filtering. */
+.collections-masthead > .eyebrow,
+.collections-masthead h1,
+.collections-masthead > p,
+.collections-jump-links,
+.collection-category-copy > * {
+  animation: aurelieTextReveal .72s cubic-bezier(.2,.7,.2,1) both;
+}
+.collections-masthead h1 { animation-delay: 90ms; }
+.collections-masthead > p { animation-delay: 170ms; }
+.collections-jump-links { animation-delay: 240ms; }
+.collection-category-copy > .collection-number { animation-delay: 60ms; }
+.collection-category-copy > .eyebrow { animation-delay: 130ms; }
+.collection-category-copy > h2 { animation-delay: 190ms; }
+.collection-category-copy > p { animation-delay: 260ms; }
+.collection-category-copy > .collection-scroll-link { animation-delay: 330ms; }
+.collection-section-heading { animation: aurelieTextReveal .58s cubic-bezier(.2,.7,.2,1) both; }
+.collection-type-pills .collection-type-pill.is-selected {
+  background: #30221c;
+  color: #fffaf2;
+  border-color: #30221c;
+  box-shadow: 0 4px 12px rgba(48,34,28,.08);
+}
+.collection-type-pills .collection-type-pill.is-selected svg { opacity: 1; }
+.collection-empty-state {
+  grid-column: 1 / -1;
+  padding: 34px 20px;
+  background: #fffdf9;
+  border: 1px solid #e6ddd1;
+  color: #81766b;
+  font-size: 12px;
+  text-align: center;
+}
+.collection-endnote-new > .eyebrow,
+.collection-endnote-new h2,
+.collection-endnote-new p,
+.collection-endnote-new .text-link {
+  animation: aurelieTextReveal .7s cubic-bezier(.2,.7,.2,1) both;
+}
+.collection-endnote-new h2 { animation-delay: 90ms; }
+.collection-endnote-new p { animation-delay: 170ms; }
+.collection-endnote-new .text-link { animation-delay: 240ms; }
+@keyframes aurelieTextReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collections-masthead > .eyebrow,
+  .collections-masthead h1,
+  .collections-masthead > p,
+  .collections-jump-links,
+  .collection-category-copy > *,
+  .collection-section-heading,
+  .collection-endnote-new > *,
+  .collection-shop-card { animation: none !important; }
+}
+
+/* Aurélie collection page: elegant text motion and in-page category filtering. */
+.collections-masthead > .eyebrow,
+.collections-masthead h1,
+.collections-masthead > p,
+.collections-jump-links,
+.collection-category-copy > * {
+  animation: aurelieTextReveal .72s cubic-bezier(.2,.7,.2,1) both;
+}
+.collections-masthead h1 { animation-delay: 90ms; }
+.collections-masthead > p { animation-delay: 170ms; }
+.collections-jump-links { animation-delay: 240ms; }
+.collection-category-copy > .collection-number { animation-delay: 60ms; }
+.collection-category-copy > .eyebrow { animation-delay: 130ms; }
+.collection-category-copy > h2 { animation-delay: 190ms; }
+.collection-category-copy > p { animation-delay: 260ms; }
+.collection-category-copy > .collection-scroll-link { animation-delay: 330ms; }
+.collection-section-heading { animation: aurelieTextReveal .58s cubic-bezier(.2,.7,.2,1) both; }
+.collection-type-pills .collection-type-pill.is-selected {
+  background: #30221c;
+  color: #fffaf2;
+  border-color: #30221c;
+  box-shadow: 0 4px 12px rgba(48,34,28,.08);
+}
+.collection-type-pills .collection-type-pill.is-selected svg { opacity: 1; }
+.collection-empty-state {
+  grid-column: 1 / -1;
+  padding: 34px 20px;
+  background: #fffdf9;
+  border: 1px solid #e6ddd1;
+  color: #81766b;
+  font-size: 12px;
+  text-align: center;
+}
+.collection-endnote-new > .eyebrow,
+.collection-endnote-new h2,
+.collection-endnote-new p,
+.collection-endnote-new .text-link {
+  animation: aurelieTextReveal .7s cubic-bezier(.2,.7,.2,1) both;
+}
+.collection-endnote-new h2 { animation-delay: 90ms; }
+.collection-endnote-new p { animation-delay: 170ms; }
+.collection-endnote-new .text-link { animation-delay: 240ms; }
+@keyframes aurelieTextReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collections-masthead > .eyebrow,
+  .collections-masthead h1,
+  .collections-masthead > p,
+  .collections-jump-links,
+  .collection-category-copy > *,
+  .collection-section-heading,
+  .collection-endnote-new > *,
+  .collection-shop-card { animation: none !important; }
+}

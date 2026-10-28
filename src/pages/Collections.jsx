@@ -69,6 +69,7 @@ function CuratedProduct({ product }) {
 }
 
 export default function Collections() {
+  const [selectedTypes, setSelectedTypes] = useState({});
   useSEO('Curated Collections | Aurélie', 'Explore Aurélie’s curated Fashion Jewellery and Women’s Clothing edits. Shop elegant earrings, rings, bracelets, necklaces, tops, bottoms, dresses and corsets.');
   return (
     <div id="top" className="page-shell collections-page collections-redesigned">
@@ -84,7 +85,12 @@ export default function Collections() {
       </header>
 
       {collectionSections.map((section, sectionIndex) => {
-        const sectionProducts = products.filter(product => product.category === section.category && section.types.includes(product.type));
+        const selectedType = selectedTypes[section.id] || 'All';
+        const sectionProducts = products.filter(product =>
+          product.category === section.category &&
+          section.types.includes(product.type) &&
+          (selectedType === 'All' || product.type === selectedType)
+        );
         return (
           <section id={section.id} className={`collection-category-section ${sectionIndex % 2 ? 'collection-category-reverse' : ''}`} key={section.id}>
             <div className="collection-category-hero">
@@ -101,13 +107,33 @@ export default function Collections() {
             <div className="collection-category-details">
               <div className="collection-section-heading">
                 <div><span className="eyebrow">THE AURÉLIE SELECTION</span><h3>{section.category === 'Jewellery' ? 'Fashion Jewellery' : 'Women’s Clothing'}</h3></div>
-                <span className="collection-count">{sectionProducts.length} selected pieces</span>
+                <span className="collection-count">{sectionProducts.length} {selectedType === 'All' ? 'selected pieces' : selectedType.toLowerCase()}</span>
               </div>
-              <div className="collection-type-pills" aria-label={`${section.category} categories`}>
-                {section.types.map(type => <span key={type}>{type}</span>)}
+              <div className="collection-type-pills" aria-label={`Filter ${section.category} products on this page`}>
+                <button
+                  type="button"
+                  className={`collection-type-pill ${selectedType === 'All' ? 'is-selected' : ''}`}
+                  aria-pressed={selectedType === 'All'}
+                  onClick={() => setSelectedTypes(current => ({ ...current, [section.id]: 'All' }))}
+                >
+                  All pieces
+                </button>
+                {section.types.map(type => (
+                  <button
+                    key={type}
+                    type="button"
+                    className={`collection-type-pill ${selectedType === type ? 'is-selected' : ''}`}
+                    aria-label={`Show ${type} products in this collection`}
+                    aria-pressed={selectedType === type}
+                    title={`Show ${type}`}
+                    onClick={() => setSelectedTypes(current => ({ ...current, [section.id]: type }))}
+                  >
+                    {type}<ArrowUpRight size={12} aria-hidden="true" />
+                  </button>
+                ))}
               </div>
               <div id={`${section.id}-products`} className="collection-shop-grid">
-                {sectionProducts.map(product => <CuratedProduct key={product.id} product={product} />)}
+                {sectionProducts.length ? sectionProducts.map(product => <CuratedProduct key={product.id} product={product} />) : <p className="collection-empty-state">More pieces are being curated for this edit. Please explore another category.</p>}
               </div>
             </div>
           </section>
