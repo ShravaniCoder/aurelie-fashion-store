@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { ArrowDown, ArrowUpRight, Check, ShoppingBag, Sparkles } from 'lucide-react';
 import { Breadcrumbs, PageIntro } from '../components/Shared';
 import { products, formatPrice } from '../data/products';
@@ -49,12 +49,14 @@ function CuratedProduct({ product }) {
   return (
     <article className="curated-product collection-shop-card">
       <div className="curated-product-image">
-        <img loading="lazy" src={product.image} alt={product.name} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/editorial-hero.png'; }} />
+        <Link to={`/product/${product.id}`} aria-label={`View details for ${product.name}`} className="collection-product-image-link">
+          <img loading="lazy" src={product.image} alt={product.name} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/editorial-hero.png'; }} />
+        </Link>
         {product.tag && <span className="product-tag">{product.tag}</span>}
         <span className="collection-product-category">{product.type}</span>
       </div>
       <div className="curated-product-meta">
-        <div><span className="product-name">{product.name}</span><span className="product-type">{product.category === 'Jewellery' ? 'Fashion Jewellery' : 'Women’s Clothing'}</span></div>
+        <div><Link to={`/product/${product.id}`} className="product-name collection-product-name">{product.name}</Link><span className="product-type">{product.category === 'Jewellery' ? 'Fashion Jewellery' : 'Women’s Clothing'}</span></div>
         <span className="product-price">{formatPrice(product.price)}</span>
       </div>
       <p className="curated-product-description">{product.description}</p>
