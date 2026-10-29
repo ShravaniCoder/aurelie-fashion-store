@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
@@ -60,7 +59,13 @@ const collectionSections = [
     id: 'jewellery-edit',
     number: '01',
     label: 'THE JEWELLERY EDIT',
-    title: <>Little treasures.<br /><em>Lasting impressions.</em></>,
+    title: (
+      <>
+        Little treasures.
+        <br />
+        <em>Lasting impressions.</em>
+      </>
+    ),
     description:
       'A considered selection of luminous pearls, sculptural gold tones and delicate finishing touches. Pieces chosen to feel special, from everyday rituals to meaningful occasions.',
     image:
@@ -74,7 +79,13 @@ const collectionSections = [
     id: 'clothing-edit',
     number: '02',
     label: 'THE WOMEN’S CLOTHING EDIT',
-    title: <>Effortless form.<br /><em>Everyday elegance.</em></>,
+    title: (
+      <>
+        Effortless form.
+        <br />
+        <em>Everyday elegance.</em>
+      </>
+    ),
     description:
       'Soft tailoring, graceful dresses and beautifully considered separates. Discover refined silhouettes with comfortable coverage and timeless styling in a palette made to mix and match.',
     image:
@@ -100,12 +111,12 @@ function getOptions(value) {
 
       return String(
         item?.colour ??
-        item?.color ??
-        item?.size ??
-        item?.name ??
-        item?.label ??
-        item?.value ??
-        ''
+          item?.color ??
+          item?.size ??
+          item?.name ??
+          item?.label ??
+          item?.value ??
+          ''
       ).trim();
     })
     .filter(Boolean);
@@ -135,14 +146,18 @@ function getSizes(product) {
 
 function getType(product) {
   const type = normal(product.type);
-
-  if (type === 'bottoms') return 'Trousers';
+  const compactType = type.replace(/[\s_-]/g, '');
 
   if (
+    ['cordset', 'cordsets', 'coordset', 'coordsets'].includes(
+      compactType
+    ) ||
     ['co-ord', 'co-ords', 'co ord sets', 'co-ord sets'].includes(type)
   ) {
     return 'Co-ord Sets';
   }
+
+  if (type === 'bottoms') return 'Bottoms';
 
   return product.type || '';
 }
@@ -157,20 +172,9 @@ function getThemes(product) {
     product.styles,
     product.tags,
   ]
-    .flatMap((value) => Array.isArray(value) ? value : [value])
+    .flatMap((value) => (Array.isArray(value) ? value : [value]))
     .filter(Boolean)
     .map(String);
-}
-
-function getStock(product) {
-  if (typeof product.inStock === 'boolean') return product.inStock;
-  if (typeof product.available === 'boolean') return product.available;
-  if (typeof product.stock === 'number') return product.stock > 0;
-  if (typeof product.stockQuantity === 'number') {
-    return product.stockQuantity > 0;
-  }
-
-  return null;
 }
 
 function CuratedProduct({ product }) {
@@ -213,7 +217,7 @@ function CuratedProduct({ product }) {
         )}
 
         <span className="collection-product-category">
-          {product.type}
+          {getType(product)}
         </span>
       </div>
 
@@ -225,6 +229,7 @@ function CuratedProduct({ product }) {
           >
             {product.name}
           </Link>
+
           <span className="product-type">
             {product.category === 'Jewellery'
               ? 'Fashion Jewellery'
@@ -244,8 +249,11 @@ function CuratedProduct({ product }) {
       <div className="curated-product-actions">
         <button className="button button-dark" onClick={add}>
           <ShoppingBag size={14} />
+
           {added ? (
-            <><Check size={13} /> Added</>
+            <>
+              <Check size={13} /> Added
+            </>
           ) : (
             'Add to Cart'
           )}
@@ -259,7 +267,13 @@ function CuratedProduct({ product }) {
   );
 }
 
-function CollectionFilters({ section, filters, onChange }) {
+function CollectionFilters({
+  section,
+  filters,
+  onChange,
+  selectedType,
+  onTypeChange,
+}) {
   const isJewellery = section.category === 'Jewellery';
 
   const colours = isJewellery
@@ -274,6 +288,7 @@ function CollectionFilters({ section, filters, onChange }) {
     <aside className="filter-panel collection-filter-panel">
       <div className="filter-title">
         <span>Refine your edit</span>
+
         <button
           type="button"
           onClick={() =>
@@ -281,7 +296,6 @@ function CollectionFilters({ section, filters, onChange }) {
               theme: '',
               maxPrice: 8000,
               colour: '',
-              availability: 'all',
               size: '',
               sort: 'featured',
             })
@@ -291,7 +305,44 @@ function CollectionFilters({ section, filters, onChange }) {
         </button>
       </div>
 
-      {/* Step 1: Theme */}
+      {/* Category buttons inside the filter box */}
+      <div
+        className="collection-type-pills collection-type-pills-in-filter"
+        aria-label={`Filter ${section.category} products`}
+      >
+        <button
+          type="button"
+          className={`collection-type-pill ${
+            selectedType === 'All' ? 'is-selected' : ''
+          }`}
+          aria-pressed={selectedType === 'All'}
+          onClick={() => onTypeChange('All')}
+        >
+          All pieces
+        </button>
+
+        {section.types.map((type) => (
+          <button
+            key={type}
+            type="button"
+            className={`collection-type-pill ${
+              selectedType === type ? 'is-selected' : ''
+            }`}
+            aria-pressed={selectedType === type}
+            onClick={() => onTypeChange(type)}
+          >
+            {type === 'Cordset' ||
+            type === 'Cord Set' ||
+            type === 'Cordsets' ||
+            type === 'Cord Sets'
+              ? 'Co-ord Sets'
+              : type}
+
+            <ArrowUpRight size={12} aria-hidden="true" />
+          </button>
+        ))}
+      </div>
+
       <div className="filter-section">
         <label
           className="filter-label"
@@ -306,6 +357,7 @@ function CollectionFilters({ section, filters, onChange }) {
           onChange={(event) => update('theme', event.target.value)}
         >
           <option value="">All themes</option>
+
           {THEMES.map((theme) => (
             <option key={theme} value={theme}>
               {theme}
@@ -314,7 +366,6 @@ function CollectionFilters({ section, filters, onChange }) {
         </select>
       </div>
 
-      {/* Step 2: Price */}
       <div className="filter-section">
         <label
           className="filter-label"
@@ -343,7 +394,6 @@ function CollectionFilters({ section, filters, onChange }) {
         </div>
       </div>
 
-      {/* Step 3: Colour */}
       <div className="filter-section">
         <span className="filter-label">Colour</span>
 
@@ -384,29 +434,6 @@ function CollectionFilters({ section, filters, onChange }) {
         )}
       </div>
 
-      {/* Step 4: Availability */}
-      <div className="filter-section">
-        <label
-          className="filter-label"
-          htmlFor={`${section.id}-availability`}
-        >
-          Availability
-        </label>
-
-        <select
-          id={`${section.id}-availability`}
-          value={filters.availability}
-          onChange={(event) =>
-            update('availability', event.target.value)
-          }
-        >
-          <option value="all">All availability</option>
-          <option value="in">In stock</option>
-          <option value="out">Out of stock</option>
-        </select>
-      </div>
-
-      {/* Apparel Size only */}
       {!isJewellery && (
         <div className="filter-section">
           <span className="filter-label">Size</span>
@@ -433,27 +460,6 @@ function CollectionFilters({ section, filters, onChange }) {
           </div>
         </div>
       )}
-
-      {/* Sorting */}
-      <div className="filter-section">
-        <label
-          className="filter-label"
-          htmlFor={`${section.id}-sort`}
-        >
-          Sort by
-        </label>
-
-        <select
-          id={`${section.id}-sort`}
-          value={filters.sort}
-          onChange={(event) => update('sort', event.target.value)}
-        >
-          <option value="featured">Featured</option>
-          <option value="newest">Newest Arrivals</option>
-          <option value="price-low">Price Low–High</option>
-          <option value="price-high">Price High–Low</option>
-        </select>
-      </div>
     </aside>
   );
 }
@@ -462,7 +468,6 @@ const initialFilters = {
   theme: '',
   maxPrice: 8000,
   colour: '',
-  availability: 'all',
   size: '',
   sort: 'featured',
 };
@@ -503,6 +508,7 @@ export default function Collections() {
           <div className="collections-category-label">
             01 <span>Fashion Jewellery</span>
           </div>
+
           <div className="collections-category-label">
             02 <span>Women’s Clothing</span>
           </div>
@@ -511,6 +517,7 @@ export default function Collections() {
 
       {collectionSections.map((section, sectionIndex) => {
         const selectedType = selectedTypes[section.id] || 'All';
+
         const filters = {
           ...initialFilters,
           ...sectionFilters[section.id],
@@ -519,20 +526,24 @@ export default function Collections() {
         let sectionProducts = products.filter((product) => {
           if (product.category !== section.category) return false;
 
+          const productType = normal(getType(product));
+
           if (
             !section.types.some(
-              (type) => normal(type) === normal(product.type)
+              (type) => normal(type) === productType
             ) &&
-            !(section.category === 'Apparel' &&
-              normal(product.type) === 'bottoms' &&
-              section.types.includes('Bottoms'))
+            !(
+              section.category === 'Apparel' &&
+              productType === 'bottoms' &&
+              section.types.includes('Bottoms')
+            )
           ) {
             return false;
           }
 
           if (
             selectedType !== 'All' &&
-            normal(product.type) !== normal(selectedType)
+            productType !== normal(selectedType)
           ) {
             return false;
           }
@@ -540,34 +551,35 @@ export default function Collections() {
           if (filters.theme) {
             const themes = getThemes(product);
 
-            if (!themes.some(
-              (theme) => normal(theme) === normal(filters.theme)
-            )) return false;
+            if (
+              !themes.some(
+                (theme) => normal(theme) === normal(filters.theme)
+              )
+            ) {
+              return false;
+            }
           }
 
-          if (Number(product.price) > filters.maxPrice) return false;
+          if (Number(product.price) > filters.maxPrice) {
+            return false;
+          }
 
           if (filters.colour) {
             const colours = getColours(product, section.category);
 
-            if (!colours.some(
-              (item) => normal(item) === normal(filters.colour)
-            )) return false;
+            if (
+              !colours.some(
+                (item) => normal(item) === normal(filters.colour)
+              )
+            ) {
+              return false;
+            }
           }
 
-          if (filters.size) {
-            if (!getSizes(product).includes(filters.size)) return false;
-          }
-
-
-
-          const stock = getStock(product);
-
-          if (filters.availability === 'in' && stock !== true) {
-            return false;
-          }
-
-          if (filters.availability === 'out' && stock !== false) {
+          if (
+            filters.size &&
+            !getSizes(product).includes(filters.size)
+          ) {
             return false;
           }
 
@@ -575,13 +587,22 @@ export default function Collections() {
         });
 
         if (filters.sort === 'price-low') {
-          sectionProducts.sort((a, b) => Number(a.price) - Number(b.price));
+          sectionProducts.sort(
+            (a, b) => Number(a.price) - Number(b.price)
+          );
         } else if (filters.sort === 'price-high') {
-          sectionProducts.sort((a, b) => Number(b.price) - Number(a.price));
+          sectionProducts.sort(
+            (a, b) => Number(b.price) - Number(a.price)
+          );
         } else if (filters.sort === 'newest') {
           sectionProducts.sort((a, b) => {
-            const dateA = new Date(a.createdAt ?? a.dateAdded ?? 0).getTime();
-            const dateB = new Date(b.createdAt ?? b.dateAdded ?? 0).getTime();
+            const dateA = new Date(
+              a.createdAt ?? a.dateAdded ?? 0
+            ).getTime();
+
+            const dateB = new Date(
+              b.createdAt ?? b.dateAdded ?? 0
+            ).getTime();
 
             return dateB - dateA;
           });
@@ -591,7 +612,9 @@ export default function Collections() {
           <section
             id={section.id}
             className={`collection-category-section ${
-              sectionIndex % 2 ? 'collection-category-reverse' : ''
+              sectionIndex % 2
+                ? 'collection-category-reverse'
+                : ''
             }`}
             key={section.id}
           >
@@ -612,9 +635,13 @@ export default function Collections() {
                 <span className="collection-number">
                   COLLECTION {section.number}
                 </span>
+
                 <span className="eyebrow">{section.label}</span>
+
                 <h2>{section.title}</h2>
+
                 <p>{section.description}</p>
+
                 <a
                   className="collection-scroll-link"
                   href={`#${section.id}-products`}
@@ -627,7 +654,10 @@ export default function Collections() {
             <div className="collection-category-details">
               <div className="collection-section-heading">
                 <div>
-                  <span className="eyebrow">THE AURÉLIE SELECTION</span>
+                  <span className="eyebrow">
+                    THE AURÉLIE SELECTION
+                  </span>
+
                   <h3>
                     {section.category === 'Jewellery'
                       ? 'Fashion Jewellery'
@@ -640,76 +670,84 @@ export default function Collections() {
                 </span>
               </div>
 
-              {/* Existing type pills are preserved */}
-              <div
-                className="collection-type-pills"
-                aria-label={`Filter ${section.category} products`}
-              >
-                <button
-                  type="button"
-                  className={`collection-type-pill ${
-                    selectedType === 'All' ? 'is-selected' : ''
-                  }`}
-                  aria-pressed={selectedType === 'All'}
-                  onClick={() =>
+              <div className="collection-products-layout">
+                <CollectionFilters
+                  section={section}
+                  filters={filters}
+                  selectedType={selectedType}
+                  onTypeChange={(type) =>
                     setSelectedTypes((current) => ({
                       ...current,
-                      [section.id]: 'All',
+                      [section.id]: type,
                     }))
                   }
-                >
-                  All pieces
-                </button>
+                  onChange={(nextFilters) =>
+                    setSectionFilters((current) => ({
+                      ...current,
+                      [section.id]: nextFilters,
+                    }))
+                  }
+                />
 
-                {section.types.map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    className={`collection-type-pill ${
-                      selectedType === type ? 'is-selected' : ''
-                    }`}
-                    aria-pressed={selectedType === type}
-                    onClick={() =>
-                      setSelectedTypes((current) => ({
-                        ...current,
-                        [section.id]: type,
-                      }))
-                    }
+                <div className="collection-products-main">
+                  <div className="collection-products-toolbar">
+                    <span className="collection-toolbar-count">
+                      {sectionProducts.length}{' '}
+                      {sectionProducts.length === 1
+                        ? 'piece'
+                        : 'pieces'}
+                    </span>
+
+                    <div className="collection-sort-control">
+                      <label htmlFor={`${section.id}-sort`}>
+                        Sort by
+                      </label>
+
+                      <select
+                        id={`${section.id}-sort`}
+                        value={filters.sort}
+                        onChange={(event) =>
+                          setSectionFilters((current) => ({
+                            ...current,
+                            [section.id]: {
+                              ...initialFilters,
+                              ...current[section.id],
+                              sort: event.target.value,
+                            },
+                          }))
+                        }
+                      >
+                        <option value="featured">Featured</option>
+                        <option value="newest">Newest Arrivals</option>
+                        <option value="price-low">
+                          Price Low–High
+                        </option>
+                        <option value="price-high">
+                          Price High–Low
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div
+                    id={`${section.id}-products`}
+                    className="collection-shop-grid"
                   >
-                    {type}
-                    <ArrowUpRight size={12} aria-hidden="true" />
-                  </button>
-                ))}
-              </div>
-
-              {/* Theme and filters below the existing category pills */}
-              <CollectionFilters
-                section={section}
-                filters={filters}
-                onChange={(nextFilters) =>
-                  setSectionFilters((current) => ({
-                    ...current,
-                    [section.id]: nextFilters,
-                  }))
-                }
-              />
-
-              <div
-                id={`${section.id}-products`}
-                className="collection-shop-grid"
-              >
-                {sectionProducts.length ? (
-                  sectionProducts.map((product) => (
-                    <CuratedProduct
-                      key={product.id}
-                      product={product}
-                    />
-                  ))
-                ) : (
-                  <p className="collection-empty-state">
-                    No pieces match these filters. Please adjust your selection.
-                  </p>
-                )}
+                    {sectionProducts.length ? (
+                      sectionProducts.map((product) => (
+                        <CuratedProduct
+                          key={product.id}
+                          product={product}
+                        />
+                      ))
+                    ) : (
+                      <p className="collection-empty-state">
+                        No pieces match these filters. Please adjust
+                        your selection.
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -717,15 +755,22 @@ export default function Collections() {
       })}
 
       <footer className="collection-endnote collection-endnote-new">
-        <span className="eyebrow">A MORE CONSIDERED WARDROBE</span>
+        <span className="eyebrow">
+          A MORE CONSIDERED WARDROBE
+        </span>
+
         <h2>
-          Find the pieces<br />
+          Find the pieces
+          <br />
           <em>that feel like you.</em>
         </h2>
+
         <p>
-          Explore the two Aurélie collection edits above. Every featured
-          item can be added to your bag or purchased directly from this page.
+          Explore the two Aurélie collection edits above. Every
+          featured item can be added to your bag or purchased
+          directly from this page.
         </p>
+
         <a href="#top" className="text-link">
           Back to the beginning <ArrowUpRight size={15} />
         </a>

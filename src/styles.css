@@ -430,6 +430,247 @@
   outline-offset: 3px;
 }
 
+.collection-products-layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.collection-filter-panel,
+.collection-products-main {
+  min-width: 0;
+}
+
+.collection-type-pills-in-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee5da;
+}
+
+.collection-type-pills-in-filter .collection-type-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 10px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.collection-products-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin: 0 0 20px;
+}
+
+.collection-toolbar-count {
+  color: #81776b;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.collection-sort-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.collection-sort-control label {
+  color: #81776b;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.collection-sort-control select {
+  min-width: 124px;
+  padding: 10px 12px;
+  border: 1px solid #e8dfd3;
+  background: #fffdfa;
+  color: #30221c;
+  font-size: 12px;
+}
+
+.collections-category-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .collection-products-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .collection-products-toolbar {
+    margin-bottom: 18px;
+  }
+}
+
+
+.footer {
+  background: #30221c;
+  color: #f8f4ed;
+  padding: 24px 5% 0;
+}
+
+.footer-main {
+  max-width: 1350px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
+  gap: 24px;
+  padding-bottom: 20px;
+}
+
+.footer-mark {
+  display: inline-flex;
+  flex-direction: column;
+  color: #f8f4ed;
+  text-decoration: none;
+}
+
+.footer-mark span {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  margin-top: 3px;
+}
+
+.footer-brand p,
+.footer-news p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #d9c8b4;
+  margin: 9px 0 0;
+}
+
+.footer-link-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.footer-link-group h4 {
+  margin: 0 0 5px;
+  color: #b49a72;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-link-group a {
+  color: #f8f4ed;
+  text-decoration: none;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.footer-link-group a:hover {
+  color: #b49a72;
+}
+
+.footer-news p {
+  margin: 0 0 5px;
+}
+
+.newsletter {
+  display: flex;
+  max-width: 260px;
+  width: 100%;
+  border-bottom: 1px solid #81776b;
+}
+
+.newsletter input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #f8f4ed;
+  font-size: 11px;
+}
+
+.newsletter input::placeholder {
+  color: #c4b8aa;
+}
+
+.newsletter button {
+  border: 0;
+  background: transparent;
+  color: #b49a72;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  margin-top: 9px;
+}
+
+.footer-legal a {
+  color: #d9c8b4;
+  font-size: 10px;
+}
+
+.footer-bottom {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 11px 0;
+  border-top: 1px solid rgba(248, 244, 237, 0.15);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #d9c8b4;
+  font-size: 10px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .footer {
+    padding: 22px 18px 0;
+  }
+
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 14px;
+    padding-bottom: 18px;
+  }
+
+  .footer-brand,
+  .footer-news {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+
 
 /* Collections — same compact catalogue layout */
 .collections-catalog .catalog-layout {

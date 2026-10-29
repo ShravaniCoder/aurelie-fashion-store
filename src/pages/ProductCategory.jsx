@@ -444,8 +444,7 @@ export default function ProductCategory({ kind }) {
                 value={sort}
                 onChange={(event) => setSort(event.target.value)}
               >
-                <option value="newest">Newest Arrivals</option>
-                <option value="bestselling">Bestselling</option>
+              
                 <option value="price-low">Price Low–High</option>
                 <option value="price-high">Price High–Low</option>
               </select>
