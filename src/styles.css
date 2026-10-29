@@ -273,6 +273,42 @@
   .collection-shop-card { animation: none !important; }
 }
 
+
+
+/* Keep category pages aligned with the compact Shop All layout */
+.product-category-catalog .catalog-layout {
+  gap: 20px;
+}
+
+.product-category-catalog .filter-panel {
+  padding: 14px;
+}
+
+.product-category-catalog .filter-section {
+  margin-top: 12px;
+}
+
+.product-category-catalog .filter-label {
+  margin-bottom: 6px;
+}
+
+.product-category-catalog .shop-size-options {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+.product-category-catalog .shop-size-option {
+  min-width: 0;
+  padding: 6px 9px;
+}
+
+@media (max-width: 768px) {
+  .product-category-catalog .catalog-layout {
+    gap: 14px;
+  }
+}
+
 /* Footer navigation and standalone ecommerce policy pages */
 .footer-link-group{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .footer-link-group>h4{margin:0 0 8px}
