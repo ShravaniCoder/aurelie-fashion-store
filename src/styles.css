@@ -275,7 +275,7 @@
 
 
 
-/* Keep category pages aligned with the compact Shop All layout */
+/* Compact category layout */
 .product-category-catalog .catalog-layout {
   gap: 20px;
 }
@@ -289,7 +289,75 @@
 }
 
 .product-category-catalog .filter-label {
+  display: block;
   margin-bottom: 6px;
+}
+
+.product-category-catalog .price-range {
+  width: 100%;
+}
+
+.product-category-catalog .price-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+/* Circular colour options */
+.product-category-catalog .colour-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.product-category-catalog .colour-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.product-category-catalog .colour-swatch-dot {
+  display: block;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--swatch-colour);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.product-category-catalog .colour-swatch.is-selected {
+  border-color: #30221C;
+}
+
+.product-category-catalog .colour-swatch:focus-visible {
+  outline: 2px solid #B49A72;
+  outline-offset: 2px;
+}
+
+.product-category-catalog .clear-colour {
+  display: block;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #81776B;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.product-category-catalog .clear-colour:hover {
+  color: #30221C;
 }
 
 .product-category-catalog .shop-size-options {
@@ -307,6 +375,59 @@
   .product-category-catalog .catalog-layout {
     gap: 14px;
   }
+}
+
+
+/* Aurélie premium jewellery swatches */
+.product-category-catalog .colour-swatches {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.product-category-catalog .colour-swatch {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.product-category-catalog .colour-swatch-dot {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--swatch-colour);
+  border: 1px solid rgba(48, 34, 28, 0.12);
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 0.5),
+    inset -1px -1px 2px rgba(48, 34, 28, 0.08);
+}
+
+.product-category-catalog .colour-swatch:hover {
+  transform: scale(1.08);
+}
+
+.product-category-catalog .colour-swatch.is-selected {
+  border-color: #30221C;
+  box-shadow: 0 0 0 1px #F8F4ED;
+}
+
+.product-category-catalog .colour-swatch:focus-visible {
+  outline: 2px solid #B49A72;
+  outline-offset: 3px;
 }
 
 /* Footer navigation and standalone ecommerce policy pages */
