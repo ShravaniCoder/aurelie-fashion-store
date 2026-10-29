@@ -40,6 +40,92 @@
 @media(max-width:760px){.collection-type-pills .collection-type-pill{padding:9px 11px;font-size:9px;gap:6px}.collection-type-pills{row-gap:8px}}
 @media(prefers-reduced-motion:reduce){.collection-type-pills .collection-type-pill,.collection-type-pills .collection-type-pill svg,.collection-product-image-link img,.category-page .pill-filter button{transition:none!important}.collection-shop-card{animation:none!important}html{scroll-behavior:auto}}
 
+
+
+.filter-section {
+  padding: 8px 0;
+  margin: 0;
+  border-bottom: 1px solid #e9dfd3;
+}
+
+.filter-section > .filter-label {
+  margin: 0;
+}
+
+.filter-options {
+  display: grid;
+  gap: 6px;
+  padding-top: 6px;
+}
+
+.filter-title {
+  margin-bottom: 12px;
+}
+
+.search-field {
+  margin-bottom: 8px;
+}
+
+.shop-size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding-top: 6px;
+}
+
+.shop-size-option {
+  min-width: 34px;
+  min-height: 30px;
+  padding: 4px 8px;
+  border: 1px solid #dfd1c1;
+  background: transparent;
+  color: #30221c;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.shop-size-option:hover,
+.shop-size-option.is-selected {
+  background: #30221c;
+  border-color: #30221c;
+  color: #fff;
+}
+
+.filter-accordion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.filter-chevron-open {
+  transform: rotate(180deg);
+}
+
+.filter-accordion svg {
+  transition: transform 180ms ease;
+}
+
+@media (max-width: 768px) {
+  .mobile-filter-trigger,
+  .mobile-filter-panel,
+  .mobile-filter-apply {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-size-option,
+  .filter-accordion svg {
+    transition: none;
+  }
+}
+
 /* Aurélie collection/category interactions: subtle, product-first motion. */
 .collection-type-pills .collection-type-pill{position:relative;text-decoration:none;min-height:42px}
 .collection-type-pills .collection-type-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
