@@ -151,13 +151,18 @@ function getType(product) {
   if (
     ['cordset', 'cordsets', 'coordset', 'coordsets'].includes(
       compactType
-    ) ||
-    ['co-ord', 'co-ords', 'co ord sets', 'co-ord sets'].includes(type)
+    )
   ) {
     return 'Co-ord Sets';
   }
 
   if (type === 'bottoms') return 'Bottoms';
+
+  if (
+    ['co-ord', 'co-ords', 'co ord sets', 'co-ord sets'].includes(type)
+  ) {
+    return 'Co-ord Sets';
+  }
 
   return product.type || '';
 }
@@ -305,42 +310,34 @@ function CollectionFilters({
         </button>
       </div>
 
-      {/* Category buttons inside the filter box */}
+      {/* Category buttons inside the filter box; no All pieces option */}
       <div
         className="collection-type-pills collection-type-pills-in-filter"
         aria-label={`Filter ${section.category} products`}
       >
-        <button
-          type="button"
-          className={`collection-type-pill ${
-            selectedType === 'All' ? 'is-selected' : ''
-          }`}
-          aria-pressed={selectedType === 'All'}
-          onClick={() => onTypeChange('All')}
-        >
-          All pieces
-        </button>
-
-        {section.types.map((type) => (
-          <button
-            key={type}
-            type="button"
-            className={`collection-type-pill ${
-              selectedType === type ? 'is-selected' : ''
-            }`}
-            aria-pressed={selectedType === type}
-            onClick={() => onTypeChange(type)}
-          >
-            {type === 'Cordset' ||
-            type === 'Cord Set' ||
-            type === 'Cordsets' ||
-            type === 'Cord Sets'
+        {section.types.map((type) => {
+          const displayType =
+            ['cordset', 'cord set', 'cordsets', 'cord sets'].includes(
+              normal(type)
+            )
               ? 'Co-ord Sets'
-              : type}
+              : type;
 
-            <ArrowUpRight size={12} aria-hidden="true" />
-          </button>
-        ))}
+          return (
+            <button
+              key={type}
+              type="button"
+              className={`collection-type-pill ${
+                selectedType === type ? 'is-selected' : ''
+              }`}
+              aria-pressed={selectedType === type}
+              onClick={() => onTypeChange(type)}
+            >
+              {displayType}
+              <ArrowUpRight size={12} aria-hidden="true" />
+            </button>
+          );
+        })}
       </div>
 
       <div className="filter-section">
@@ -501,6 +498,7 @@ export default function Collections() {
           with selected pieces to shop directly on this page.
         </p>
 
+        {/* Non-clickable collection labels */}
         <div
           className="collections-jump-links"
           aria-label="Collection categories"
@@ -516,7 +514,8 @@ export default function Collections() {
       </header>
 
       {collectionSections.map((section, sectionIndex) => {
-        const selectedType = selectedTypes[section.id] || 'All';
+        const selectedType =
+          selectedTypes[section.id] || section.types[0];
 
         const filters = {
           ...initialFilters,
@@ -528,22 +527,17 @@ export default function Collections() {
 
           const productType = normal(getType(product));
 
-          if (
-            !section.types.some(
-              (type) => normal(type) === productType
-            ) &&
-            !(
-              section.category === 'Apparel' &&
-              productType === 'bottoms' &&
-              section.types.includes('Bottoms')
-            )
-          ) {
-            return false;
-          }
+          const matchesSectionType = section.types.some(
+            (type) =>
+              normal(type) === productType ||
+              normal(type) === normal(product.type)
+          );
+
+          if (!matchesSectionType) return false;
 
           if (
-            selectedType !== 'All' &&
-            productType !== normal(selectedType)
+            productType !== normal(selectedType) &&
+            normal(product.type) !== normal(selectedType)
           ) {
             return false;
           }
@@ -565,11 +559,15 @@ export default function Collections() {
           }
 
           if (filters.colour) {
-            const colours = getColours(product, section.category);
+            const productColours = getColours(
+              product,
+              section.category
+            );
 
             if (
-              !colours.some(
-                (item) => normal(item) === normal(filters.colour)
+              !productColours.some(
+                (colour) =>
+                  normal(colour) === normal(filters.colour)
               )
             ) {
               return false;
@@ -690,6 +688,7 @@ export default function Collections() {
                 />
 
                 <div className="collection-products-main">
+                  {/* Count and sorting outside the filter box */}
                   <div className="collection-products-toolbar">
                     <span className="collection-toolbar-count">
                       {sectionProducts.length}{' '}
@@ -717,8 +716,7 @@ export default function Collections() {
                           }))
                         }
                       >
-                        <option value="featured">Featured</option>
-                        <option value="newest">Newest Arrivals</option>
+                        
                         <option value="price-low">
                           Price Low–High
                         </option>
