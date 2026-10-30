@@ -284,33 +284,146 @@ export default function ProductCategory({ kind }) {
   return (
     <main className="page-shell product-category-catalog">
 
-      <div className={`category-page-banner ${isJewellery ? 'jewellery-banner' : 'apparel-banner'}`}>
+     
+<div className="
+  relative
+  w-[calc(100%+12%)]
+  aspect-[3/1]
+  -mx-[6%]
+  -mt-[34px]
+  mb-[18px]
+  p-0
+  overflow-hidden
+  box-border
+
+  max-[760px]:w-[calc(100%+10%)]
+  max-[760px]:-mx-[5%]
+  max-[760px]:aspect-[2/1]
+  max-[760px]:-mt-[25px]
+  max-[760px]:mb-[14px]
+">
+
+  {/* Banner Image */}
   <img
     src={
       isJewellery
         ? "/images/Banner1.png"
         : "/images/Banner2.png"
     }
-    alt={isJewellery ? "Aurélie Jewellery" : "Aurélie Women's Apparel"}
+    alt={
+      isJewellery
+        ? "Aurélie Jewellery"
+        : "Aurélie Women's Apparel"
+    }
+    className="
+      block
+      w-full
+      h-full
+      object-cover
+      object-center
+    "
   />
 
-  <div className="category-banner-content">
-    <span>TIMELESS PIECES</span>
-    <span>FOR EVERY YOU</span>
+  {/* Banner Content - RIGHT SIDE */}
+  <div className="
+    absolute
+    top-1/2
+    right-[8%]
+    -translate-y-1/2
+    z-[2]
+    flex
+    flex-col
+    items-center
+    text-center
+    text-[#30221c]
 
-    <h2>{isJewellery ? 'Jewellery' : 'The Modern Wardrobe'}</h2>
+    max-[760px]:right-[4%]
+    max-[760px]:w-[48%]
+  ">
 
-    <p>
+    <span className="
+      text-[10px]
+      tracking-[4px]
+      leading-[2]
+
+      max-[760px]:text-[7px]
+      max-[760px]:tracking-[2px]
+    ">
+      TIMELESS PIECES
+    </span>
+
+    <span className="
+      text-[10px]
+      tracking-[4px]
+      leading-[2]
+
+      max-[760px]:text-[7px]
+      max-[760px]:tracking-[2px]
+    ">
+      FOR EVERY YOU
+    </span>
+
+    <h2 className="
+      mt-[30px]
+      mb-[5px]
+      font-['Cormorant_Garamond',serif]
+      text-[clamp(32px,5vw,76px)]
+      font-normal
+      italic
+
+      max-[760px]:mt-[15px]
+      max-[760px]:mb-[4px]
+      max-[760px]:text-[clamp(23px,6vw,38px)]
+    ">
       {isJewellery
-        ? 'THAT DEFINES YOU'
-        : 'STYLE THAT SPEAKS YOU'}
+        ? "Jewellery"
+        : "The Modern Wardrobe"}
+    </h2>
+
+    <p className="
+      mb-[12px]
+      text-[13px]
+      tracking-[5px]
+
+      max-[760px]:mb-[8px]
+    ">
+      {isJewellery
+        ? "THAT DEFINES YOU"
+        : "STYLE THAT SPEAKS YOU"}
     </p>
 
-    <a href={isJewellery ? "#catalog-layout" : "#catalog-layout"}>
-      SHOP NOW <span>→</span>
+    <a
+      href="#catalog-layout"
+      className="
+        inline-flex
+        items-center
+        gap-[10px]
+        px-4
+        py-2
+        border
+        border-[#30221c]
+        text-[#30221c]
+        no-underline
+        text-[10px]
+        tracking-[1.5px]
+        transition-all
+        duration-300
+        hover:bg-[#30221c]
+        hover:text-white
+
+        max-[760px]:px-[10px]
+        max-[760px]:py-[6px]
+        max-[760px]:gap-[6px]
+        max-[760px]:text-[7px]
+      "
+    >
+      SHOP NOW
+      <span>→</span>
     </a>
+
   </div>
 </div>
+
       <Breadcrumbs items={[{ label: title }]} />
 
       <PageIntro

@@ -449,7 +449,21 @@ export default function Shop() {
      
 
       {/* Shop All Banner */}
-<section className="relative w-[calc(100%+12%)] -ml-[6%] -mt-[34px] mb-[18px] aspect-[3/1] overflow-hidden max-[760px]:w-[calc(100%+10%)] max-[760px]:-ml-[5%] max-[760px]:-mt-[25px] max-[760px]:mb-[14px] max-[760px]:aspect-[2/1]">
+<section className="
+  relative
+  w-[calc(100%+12%)]
+  -ml-[6%]
+  -mt-[34px]
+  mb-[18px]
+  aspect-[2.5/1]
+  overflow-hidden
+
+  max-[760px]:w-[calc(100%+10%)]
+  max-[760px]:-ml-[5%]
+  max-[760px]:-mt-[25px]
+  max-[760px]:mb-[14px]
+  max-[760px]:aspect-[1.4/1]
+">
 
   {/* Background Image */}
   <img

@@ -484,7 +484,6 @@ export default function Collections() {
       className="page-shell collections-page collections-redesigned"
     >
       <Breadcrumbs items={[{ label: 'Collections' }]} />
-
       
 
       <header className="collections-masthead">
@@ -501,18 +500,30 @@ export default function Collections() {
         </p>
 
         {/* Non-clickable collection labels */}
-        <div
-          className="collections-jump-links"
-          aria-label="Collection categories"
-        >
-          <div className="collections-category-label">
-            01 <span>Fashion Jewellery</span>
-          </div>
+       {/* Centered Collection Category Buttons */}
+<div className="mt-8 flex w-full flex-col items-center justify-center gap-3">
 
-          <div className="collections-category-label">
-            02 <span>Women’s Clothing</span>
-          </div>
-        </div>
+  {/* Fashion Jewellery */}
+  <div className="flex w-full max-w-[280px] items-center justify-center gap-3 border border-[#D9C8B4] px-5 py-3 text-center transition-all duration-300 hover:bg-[#F8F4ED]">
+    <span className="text-sm font-medium text-[#81776B]">
+      01
+    </span>
+    <span className="text-sm font-medium text-[#30221C]">
+      Fashion Jewellery
+    </span>
+  </div>
+
+  {/* Women's Clothing */}
+  <div className="flex w-full max-w-[280px] items-center justify-center gap-3 border border-[#D9C8B4] px-5 py-3 text-center transition-all duration-300 hover:bg-[#F8F4ED]">
+    <span className="text-sm font-medium text-[#81776B]">
+      02
+    </span>
+    <span className="text-sm font-medium text-[#30221C]">
+      Women’s Clothing
+    </span>
+  </div>
+
+</div>
       </header>
 
       {collectionSections.map((section, sectionIndex) => {
