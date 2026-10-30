@@ -485,6 +485,8 @@ export default function Collections() {
     >
       <Breadcrumbs items={[{ label: 'Collections' }]} />
 
+      
+
       <header className="collections-masthead">
         <span className="eyebrow">
           <Sparkles size={13} /> CURATED BY AURÉLIE

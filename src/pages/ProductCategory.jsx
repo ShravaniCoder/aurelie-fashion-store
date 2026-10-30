@@ -283,6 +283,34 @@ export default function ProductCategory({ kind }) {
 
   return (
     <main className="page-shell product-category-catalog">
+
+      <div className={`category-page-banner ${isJewellery ? 'jewellery-banner' : 'apparel-banner'}`}>
+  <img
+    src={
+      isJewellery
+        ? "/images/Banner1.png"
+        : "/images/Banner2.png"
+    }
+    alt={isJewellery ? "Aurélie Jewellery" : "Aurélie Women's Apparel"}
+  />
+
+  <div className="category-banner-content">
+    <span>TIMELESS PIECES</span>
+    <span>FOR EVERY YOU</span>
+
+    <h2>{isJewellery ? 'Jewellery' : 'The Modern Wardrobe'}</h2>
+
+    <p>
+      {isJewellery
+        ? 'THAT DEFINES YOU'
+        : 'STYLE THAT SPEAKS YOU'}
+    </p>
+
+    <a href={isJewellery ? "#catalog-layout" : "#catalog-layout"}>
+      SHOP NOW <span>→</span>
+    </a>
+  </div>
+</div>
       <Breadcrumbs items={[{ label: title }]} />
 
       <PageIntro
@@ -295,7 +323,7 @@ export default function ProductCategory({ kind }) {
         }
       />
 
-      <div className="catalog-layout">
+    <div className="catalog-layout" id="catalog-layout">
         <aside className="filter-panel">
           <div className="filter-title">
             <SlidersHorizontal size={16} />

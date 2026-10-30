@@ -446,7 +446,43 @@ export default function Shop() {
 
   return (
     <div className="page-shell">
-      <Breadcrumbs items={[{ label: 'Shop All' }]} />
+     
+
+      {/* Shop All Banner */}
+<section className="relative w-[calc(100%+12%)] -ml-[6%] -mt-[34px] mb-[18px] aspect-[3/1] overflow-hidden max-[760px]:w-[calc(100%+10%)] max-[760px]:-ml-[5%] max-[760px]:-mt-[25px] max-[760px]:mb-[14px] max-[760px]:aspect-[2/1]">
+
+  {/* Background Image */}
+  <img
+    src="/images/Banner3.png"
+    alt="Shop All Collection"
+    className="absolute inset-0 w-full h-full object-cover object-center"
+  />
+
+  {/* Left Side Text */}
+  <div className="absolute left-[8%] top-1/2 -translate-y-1/2 z-10 flex flex-col items-start text-left text-[#30221c] max-[760px]:left-[4%] max-[760px]:w-[48%]">
+
+    <span className="text-[10px] tracking-[4px] leading-[2] max-[760px]:text-[7px] max-[760px]:tracking-[2px]">
+      THE COMPLETE EDIT
+    </span>
+
+    <h2 className="mt-[18px] mb-[5px] font-serif italic font-normal text-[clamp(32px,5vw,76px)] leading-none max-[760px]:mt-[10px] max-[760px]:mb-[4px] max-[760px]:text-[clamp(23px,6vw,38px)]">
+      Shop All
+    </h2>
+
+    <p className="mb-3 text-[13px] tracking-[3px] max-[760px]:mb-2 max-[760px]:text-[9px] max-[760px]:tracking-[1.5px]">
+      JEWELLERY &amp; APPAREL
+    </p>
+
+    <a
+      href="#shop-products"
+      className="inline-flex items-center gap-2 border border-[#30221c] px-4 py-2 text-[10px] tracking-[1.5px] text-[#30221c] transition-all duration-300 hover:bg-[#30221c] hover:text-white max-[760px]:gap-1.5 max-[760px]:px-2.5 max-[760px]:py-1.5 max-[760px]:text-[7px]"
+    >
+      EXPLORE COLLECTION
+      <span>→</span>
+    </a>
+
+  </div>
+</section>
 
       <PageIntro
         eyebrow="The complete edit"
@@ -454,7 +490,7 @@ export default function Shop() {
         description="A considered collection of finishing touches and modern wardrobe favourites. Discover jewellery and clothing together, and find the piece that feels like you."
       />
 
-      <div className="catalog-layout">
+      <div className="catalog-layout" id="shop-products">
         <div className="desktop-filter-panel">
           {filterPanel}
         </div>
