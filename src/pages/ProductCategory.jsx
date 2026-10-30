@@ -20,7 +20,7 @@ const APPAREL_ORDER = [
   'Tops',
   'Shirts',
   'Dresses',
-  'Trousers',
+  'Bottoms',
   'Co-ord Sets',
 ];
 
@@ -68,10 +68,6 @@ const normalize = (value) =>
 
 function getType(product, isJewellery) {
   const type = normalize(product.type);
-
-  if (!isJewellery && type === 'bottoms') {
-    return 'Trousers';
-  }
 
   if (
     !isJewellery &&
@@ -126,12 +122,10 @@ function getColours(product, isJewellery) {
     return extractOptionNames(direct);
   }
 
-  // Jewellery variants may contain Gold, Rose Gold and Silver.
   if (isJewellery) {
     return extractOptionNames(product.variants);
   }
 
-  // Do not interpret apparel sizes as colours.
   return [];
 }
 
@@ -213,18 +207,18 @@ export default function ProductCategory({ kind }) {
         .join(' ')
         .toLowerCase();
 
-      return (
-        (!type || getType(product, isJewellery) === type) &&
-        Number(product.price) <= maxPrice &&
-        (
-          !colour ||
-          productColours.some(
-            (value) => normalize(value) === normalize(colour)
-          )
-        ) &&
-        (isJewellery || !size || productSizes.includes(size)) &&
-        searchableText.includes(query.trim().toLowerCase())
-      );
+     return (
+  (!type || normalize(product.type) === normalize(type)) &&
+  Number(product.price) <= maxPrice &&
+  (
+    !colour ||
+    productColours.some(
+      (value) => normalize(value) === normalize(colour)
+    )
+  ) &&
+  (isJewellery || !size || productSizes.includes(size)) &&
+  searchableText.includes(query.trim().toLowerCase())
+);
     });
 
     if (sort === 'price-low') {
@@ -471,7 +465,7 @@ export default function ProductCategory({ kind }) {
               value={type}
               onChange={(event) => setType(event.target.value)}
             >
-              <option value="">All types</option>
+              
               {types.map((item) => (
                 <option key={item} value={item}>
                   {item}
